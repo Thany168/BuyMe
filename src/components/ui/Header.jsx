@@ -12,7 +12,9 @@ export default function Header() {
         ☰
       </button>
 
-      <span className="text-sm font-medium">Admin Panel</span>
+      <span className="text-sm font-medium bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-amber-50">
+        Admin Panel
+      </span>
     </header>
   );
 }

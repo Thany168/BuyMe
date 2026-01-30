@@ -6,7 +6,7 @@ function Dashboard() {
   }
 return (
 <>
-  <button onClick={handleClick}>Click Me</button>
+  <button onClick={handleClick}>Me</button>
 </>
 )
 }

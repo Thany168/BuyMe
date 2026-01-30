@@ -8,12 +8,12 @@ export default function Sidebar() {
   return (
     <aside
       className={clsx(
-        "bg-white dark:bg-gray-800 border-r transition-all duration-300",
+        "text-amber-50 dark:bg-gray-800 border-r transition-all duration-300",
         collapsed ? "w-16" : "w-64",
         isMobile && "fixed z-40 h-full",
       )}
     >
-      <div className="h-14 flex items-center justify-center font-bold border-b">
+      <div className="h-14 flex items-center justify-center font-bold border-b text-amber-50">
         {collapsed ? "POS" : "POS Admin"}
       </div>
 
@@ -34,8 +34,8 @@ function SidebarItem({ to, label, collapsed }) {
         clsx(
           "flex items-center gap-3 p-2 rounded-md text-sm font-medium transition",
           isActive
-            ? "bg-blue-600 text-white"
-            : "hover:bg-gray-200 dark:hover:bg-gray-700",
+            ? "bg-amber-700 text-white"
+            : "hover:bg-gray-200 dark:hover:bg-gray-400",
         )
       }
     >

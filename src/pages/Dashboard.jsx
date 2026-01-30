@@ -1,7 +1,13 @@
 import React from "react";
 
 function Dashboard() {
-  return <div>Dashboard</div>;
+  function handleClick(){
+    alert(123);
+  }
+return (
+<>
+  <button onClick={handleClick}>Click Me</button>
+</>
+)
 }
-
 export default Dashboard;

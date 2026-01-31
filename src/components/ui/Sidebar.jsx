@@ -39,7 +39,7 @@ function SidebarItem({ to, label, collapsed }) {
         )
       }
     >
-      <span className="w-6 text-center">•</span>
+      {/* <span className="w-6 text-center"></span> */}
       {!collapsed && <span>{label}</span>}
     </NavLink>
   );

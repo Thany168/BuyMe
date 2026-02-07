@@ -5,8 +5,8 @@ import clsx from "clsx";
 //Meterail Icons import section
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InventoryIcon from "@mui/icons-material/Inventory";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import PaymentIcon from "@mui/icons-material/Payment";
 export default function Sidebar() {
   const { collapsed, isMobile, open, closeSidebar } = useSidebar();
   const isCollapsed = isMobile ? false : collapsed;
@@ -39,21 +39,27 @@ export default function Sidebar() {
         <nav className="p-2 space-y-1">
           <SidebarItem
             to="/"
-            label="Dashboard"
+            label="Product Management"
             collapsed={collapsed}
             icon={<DashboardIcon />}
           />
           <SidebarItem
-            to="/products"
-            label="Products"
+            to="/stocks"
+            label="Stock Management"
             collapsed={collapsed}
             icon={<InventoryIcon />}
           />
           <SidebarItem
-            to="/orders"
-            label="Orders"
+            to="/transaction"
+            label="Transaction Management"
             collapsed={collapsed}
-            icon={<ShoppingCartIcon />}
+            icon={<PaymentIcon />}
+          />
+          <SidebarItem
+            to="/employee"
+            label="Employee Management"
+            collapsed={collapsed}
+            icon={<PeopleOutlineIcon />}
           />
         </nav>
       </aside>

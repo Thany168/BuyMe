@@ -1,5 +1,5 @@
 import AdminLayout from "../layouts/AdminLayout";
-import EmployeeManagement from "../pages/EmployeeManagement";
+import EmployeeManagement from "../pages/Employee/EmployeeManagement";
 import ProductManagement from "../pages/ProductManagement";
 import StockManagement from "../pages/StockManagement";
 import Transaction from "../pages/Transaction";

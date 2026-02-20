@@ -1,4 +1,4 @@
-import { ButtonGroup, IconButton, Stack, TextField } from "@mui/material";
+import { ButtonGroup, IconButton, MenuItem, Select, Stack, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
@@ -80,22 +80,112 @@ function EmployeeManagement() {
   const [data, setData] = useState(testData);
   const [search,setSearch]=useState("");
   const filter=data.filter((item)=>search==="" || item.id.toString()==search);
+  const [getId,setId]=useState();
+  const [name,setName]=useState("");
+  const [price,setPrice]=useState("");
+  const [status,setStatus]=useState("active");
+  
 
   const addNewData=()=>{
-    const newItem={
+    if(name && price ){
+      const newItem={
       id: data.length + 1,
-      name: `Item ${data.length + 1}`,
-      price: Math.floor(Math.random() * 500) + 50,
-      status: Math.random() > 0.5 ? "active" : "inactive",
+      name: name,
+      price: price,
+      status: status,
       createdAt: new Date().toISOString().split('T')[0]
     }
     setData(pre=>[...pre,newItem]);
     console.log(data);
+    }else{
+      alert("Please fill all the fields");
+    }
+  }
+  const deleteData=(id)=>{
+    const newData=data.filter(item=>item.id!==id);
+    setData(newData);
+  }
+
+  const ActiveData=(id)=>{
+    const newData=data.map(item=>{
+      if(item.id===id){
+        if(item.status==="active"){
+          return {...item,status:'inactive'};
+        }else{
+          return {...item,status:'active'};
+        }
+      }
+      return item;
+    });
+    setData(newData);
   }
 
 
   return (
     <>
+    <el-dialog>
+  <dialog id="dialog" aria-labelledby="dialog-title" class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+    <el-dialog-backdrop class="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
+
+    <div tabindex="0" class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+      <el-dialog-panel class="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+        <div class="bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-500/10 sm:mx-0 sm:size-10">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-red-400">
+                <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <h3 id="dialog-title" class="text-base font-semibold text-white">Delete Employee</h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-400">Are you sure you want to delete this employee?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-700/25 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button onClick={()=>deleteData(getId)} type="button" command="close" commandfor="dialog" class="inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white hover:bg-red-400 sm:ml-3 sm:w-auto">Delete</button>
+          <button type="button" command="close" commandfor="dialog" class="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto">Cancel</button>
+        </div>
+      </el-dialog-panel>
+    </div>
+  </dialog>
+</el-dialog>
+    <el-dialog>
+  <dialog id="dialog1" aria-labelledby="dialog-title" class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+    <el-dialog-backdrop class="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"></el-dialog-backdrop>
+
+    <div tabindex="0" class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+      <el-dialog-panel class="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-xl outline -outline-offset-1 outline-white/10 transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-500/10 sm:mx-0 sm:size-10">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-red-400">
+                <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="mt-3  text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <h3 id="dialog-title" class="text-base font-semibold text-black">Add Employee</h3>
+              <div class="mt-5 flex gap-4">
+                <TextField className="w-full " value={name} onChange={(e)=>setName(e.target.value)} color="white" label="Name" id="name" size="small" />
+                <TextField className="w-full" value={price} onChange={(e)=>setPrice(e.target.value)}  label="Price" id="price" size="small" />
+                   <select value={status} onChange={(e)=>setStatus(e.target.value)} id="countries" class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <button  type="button" onClick={addNewData}  command="close" commandfor="dialog1" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue/5 sm:ml-3 sm:w-auto">Save</button>
+          <button type="button" command="close" commandfor="dialog1" class="mt-3 inline-flex w-full justify-center rounded-md bg-red-700 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-red/5 hover:bg-red/20 sm:mt-0 sm:w-auto">Cancel</button>
+        </div>
+      </el-dialog-panel>
+    </div>
+  </dialog>
+</el-dialog>
       <div className="">
         <div className="flex justify-between  w-full p-4">
         <div className="">
@@ -107,7 +197,7 @@ function EmployeeManagement() {
             <Button aria-label="search" variant="contained" color="primary"><SearchIcon color="white" /></Button>  
           </Stack> 
         
-          <Button variant="contained" onClick={addNewData}>Add</Button>
+          <Button variant="contained" command="show-modal" commandfor="dialog1" >Add</Button>
         </div>
         </div>
         <div>
@@ -140,8 +230,8 @@ function EmployeeManagement() {
                 </td>
                 <td>
                   <ButtonGroup variant="contained">
-                    <Button  color="primary" onClick={()=>alert("Edited")}>Edit</Button>
-                    <Button  color="error" onClick={()=>alert("Deleted")}>Delete</Button>
+                    <Button  color="primary" onClick={()=>ActiveData(item.id)}>Active</Button>
+                    <Button command="show-modal" commandfor="dialog" color="error" onClick={()=>setId(item.id)}>Delete</Button>
                   </ButtonGroup>
                 </td>
               </tr>
